@@ -58,7 +58,37 @@
   <audio data-key="76" src="sounds/tink.wav"></audio>
 
 <script>
-
+  let allDiv = document.body.querySelectorAll('div');
+  let allAudio = document.body.querySelectorAll('audio');
+document.addEventListener('keydown',function(event){
+  //console.log(event.keyCode);
+  
+  allDiv.forEach(elem =>{
+    if(elem.dataset.key != undefined) {
+        if(elem.dataset.key == event.keyCode){
+        console.log('Colore here');
+        elem.classList.add('playing');
+        allAudio.forEach(el =>{
+        if(el.dataset.key == event.keyCode){
+          el.play();
+        }
+      });
+    }
+    }
+    console.log(elem.dataset.key);
+  });
+});
+document.addEventListener('keyup',function(event){
+  //console.log(event.keyCode);
+  allDiv.forEach(elem =>{
+    if(elem.dataset.key != undefined) {
+        if(elem.dataset.key == event.keyCode)
+        elem.classList.remove('playing');
+        
+      }
+    });
+    
+});
 </script>
 
 
