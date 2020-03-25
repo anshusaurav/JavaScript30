@@ -28,15 +28,16 @@
 <script>
   const addItems = document.querySelector('.add-items');
   const itemsList = document.querySelector('.plates');
-  const items = [];
+  const items = JSON.parse(localStorage.getItem('items'))||[];
   const button = document.querySelector('input[type="submit"]');
   const inpElem = document.querySelector('input[type="text"]');
-  button.addEventListener('submit', addItem);
+  button.addEventListener('click', addItem);
   function addItem(event){
     event.preventDefault(); 
     let str = inpElem.value;
     if(str.trim().length > 0)
-    items.push(str.trim());
+      items.push(str.trim());
+    localStorage.setItem('items', JSON.stringify(items));
     updateUI();
     inpElem.value = '';
     
@@ -56,6 +57,7 @@
       itemsList.append(liEl);
     }
   }
+  updateUI();
 </script>
 
 
