@@ -58,37 +58,26 @@
   <audio data-key="76" src="sounds/tink.wav"></audio>
 
 <script>
-  let allDiv = document.body.querySelectorAll('div');
-  let allAudio = document.body.querySelectorAll('audio');
+  let div;
+  let audio;
 document.addEventListener('keydown',function(event){
-  //console.log(event.keyCode);
-  
-  allDiv.forEach(elem =>{
-    if(elem.dataset.key != undefined) {
-        if(elem.dataset.key == event.keyCode){
-        console.log('Colore here');
-        elem.classList.add('playing');
-        allAudio.forEach(el =>{
-        if(el.dataset.key == event.keyCode){
-          el.play();
-        }
-      });
-    }
-    }
-    console.log(elem.dataset.key);
-  });
+  div = document.querySelector(`.key[data-key="${event.keyCode}"]`);
+  audio = document.querySelector(`audio[data-key="${event.keyCode}"]`);
+  console.dir(audio);
+  if(!audio) return;
+  audio.play();
+  div.classList.add('playing');
+  audio.currentTime = 0;
 });
-document.addEventListener('keyup',function(event){
-  //console.log(event.keyCode);
-  allDiv.forEach(elem =>{
-    if(elem.dataset.key != undefined) {
-        if(elem.dataset.key == event.keyCode)
-        elem.classList.remove('playing');
-        
-      }
-    });
-    
-});
+function removeCss(event) {
+  if(event.propertyName !=='transform') return;
+  this.classList.remove('playing');
+}
+let allDiv = document.querySelectorAll('.key');
+
+allDiv.forEach(elem =>{
+  elem.addEventListener('transitionend', removeCss);
+})
 </script>
 
 
