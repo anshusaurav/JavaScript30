@@ -96,6 +96,21 @@
   </div>
 
 <script>
+  let lastIndex = -1;
+  let allChecks = Array.from(document.querySelectorAll('input[type="checkbox"]'));
+  allChecks.forEach((elem,index) =>{
+    elem.addEventListener('click',function(event){
+      if(lastIndex != -1){
+        if(event.shiftKey && elem.checked){
+          for(let i = Math.min(lastIndex, index); i <= Math.max(lastIndex, index); i++){
+            allChecks[i].checked = true;
+          } 
+        }
+      }
+      lastIndex = index;
+    });
+  });
+  
 </script>
 </body>
 </html>
